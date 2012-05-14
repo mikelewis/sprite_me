@@ -1,10 +1,25 @@
 module SpriteMe
   class Server  < Goliath::API
+    include Goliath::Rack::Types
+    use Goliath::Rack::JSONP # if params[:callback] doesn't exist, it will just return what response returns
+    use Goliath::Rack::Params
+    use Goliath::Rack::Validation::Param,
+          :key => "images", :as => JsonParams, :message => "images must be an array of urls"
 
     def response(env)
-      urls =["http://imgv2-3.scribdassets.com/img/word_user/20953361/48x48/e0e419fad7/1332991813", "http://profile.ak.fbcdn.net/hprofile-ak-snc4/187591_519501168_265807_q.jpg"]
-      p Downloader.get_responses(urls)
-      [200, {}, "OK"]
+      images = Downloader.get_images(params["images"])
+      resp = Yajl::Encoder.encode(format_response(params, images))
+      [200, {},  resp]
+    end
+
+    def format_response(params, images)
+      if params[:sprite]
+        {:sprite => Image.sprite_images(images)}
+      else
+        images.each do |(k, v)|
+          images[k] = v.data_uri
+        end
+      end
     end
   end
 end

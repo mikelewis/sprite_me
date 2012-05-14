@@ -1,8 +1,8 @@
 module SpriteMe
   class Downloader
-    def self.get_responses(urls)
+    def self.get_images(urls)
       d = new(urls)
-      d.get_responses
+      d.get_images
     end
 
     def initialize(urls)
@@ -10,8 +10,8 @@ module SpriteMe
       @urls = urls
     end
 
-    def get_responses
-      get_images download_urls
+    def get_images
+      download_images download_urls
     end
 
     private
@@ -24,7 +24,7 @@ module SpriteMe
       multi.perform
     end
 
-    def get_images(replies)
+    def download_images(replies)
       replies.requests.inject({}) do|h, (url, http_request)|
         h[url] = Image.new(http_request.response_header['CONTENT_TYPE'], http_request.response)
         h

@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   #run time
-  ['em-http-request', 'goliath', 'em-synchrony'].each do |runtime|
+  ['em-http-request', 'em-synchrony', 'yajl-ruby'].each do |runtime|
     s.add_runtime_dependency runtime
   end
 
