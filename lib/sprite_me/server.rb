@@ -7,7 +7,7 @@ module SpriteMe
           :key => "images", :as => JsonParams, :message => "images must be an array of urls"
 
     def response(env)
-      images = Downloader.get_images(params["images"])
+      images = Downloader.get_images(params["images"], config)
       resp = Yajl::Encoder.encode(format_response(params, images))
       [200, {},  resp]
     end

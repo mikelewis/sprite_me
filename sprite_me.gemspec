@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Mike Lewis"]
   s.email       = ["ft.mikelewis@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Real time image spriter for dynamic images}
+  s.description = %q{Real time image spriter for dynamic images}
 
   s.rubyforge_project = "sprite_me"
 
